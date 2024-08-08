@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .display {
+            font-size: 24px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: right;
+            width: 100%;
+            box-sizing: border-box;
+            height: 50px;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .buttons button {
+            padding: 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #f1f1f1;
+            transition: background-color 0.3s;
+        }
+        .buttons button:hover {
+            background-color: #ddd;
+        }
+        .equal {
+            grid-column: span 4;
+            background-color: #fdd835; /* Gelbe Farbe für das Gleichheitszeichen */
+            color: black; /* Dunkle Textfarbe */
+        }
+        .clear {
+            background-color: #e53935; /* Rote Farbe für die Clear-Taste */
+            color: white; /* Weiße Textfarbe */
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <input type="text" class="display" id="display" readonly>
+    <div class="buttons">
+        <button onclick="appendNumber('1')">1</button>
+        <button onclick="appendNumber('2')">2</button>
+        <button onclick="appendNumber('3')">3</button>
+        <button onclick="appendOperator('+')">+</button>
+        <button onclick="appendNumber('4')">4</button>
+        <button onclick="appendNumber('5')">5</button>
+        <button onclick="appendNumber('6')">6</button>
+        <button onclick="appendOperator('-')">-</button>
+        <button onclick="appendNumber('7')">7</button>
+        <button onclick="appendNumber('8')">8</button>
+        <button onclick="appendNumber('9')">9</button>
+        <button onclick="appendOperator('*')">*</button>
+        <button onclick="clearDisplay()" class="clear">C</button>
+        <button onclick="appendNumber('0')">0</button>
+        <button onclick="appendDecimal()">.</button>
+        <button onclick="appendOperator('/')">/</button>
+        <button onclick="calculateResult()" class="equal">=</button>
+    </div>
+</div>
+
+<script>
+    let equation = '';
+
+    function appendNumber(number) {
+        equation += number;
+        document.getElementById('display').value = equation;
+    }
+
+    function appendOperator(operator) {
+        equation += operator;
+        document.getElementById('display').value = equation;
+    }
+
+    function appendDecimal() {
+        if (!equation.endsWith('.')) {
+            equation += '.';
+            document.getElementById('display').value = equation;
+        }
+    }
+
+    function clearDisplay() {
+        equation = '';
+        document.getElementById('display').value = '';
+    }
+
+    function calculateResult() {
+        try {
+            const result = eval(equation);
+            equation = result.toString();
+            document.getElementById('display').value = equation;
+        } catch (error) {
+            document.getElementById('display').value = 'Error';
+            equation = '';
+        }
+    }
+</script>
+
+</body>
+</html>
